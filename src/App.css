@@ -1,38 +1,81 @@
-.App {
-  text-align: center;
+.App__nav {
+	display: flex;
+	padding: 10px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App__header {
+	justify-self: center;
+	margin: auto;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.App__logo {
+	width: 100px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.Converter {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	padding: 5% 0;
 }
 
-.App-link {
-  color: #61dafb;
+.Converter__input {
+	font-size: 18px;
+	padding: 15px 20px;
+	border: 1px solid black;
+	border-right: 0;
+	border-radius: 10px 0 0 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Converter__find_btn {
+	font-size: 18px;
+	padding: 15px 20px;
+	border: 1px solid black;
+	border-left: 0;
+	border-radius: 0 10px 10px 0;
+	background-color: white;
+	color: #1f1f1f;
+}
+
+.Converter__find_btn:hover {
+	color: white;
+	background-color: #1f1f1f;
+}
+
+.Converter__vid_title {
+	padding: 0 10%;
+	font-size: 20px;
+	margin: 20px;
+}
+
+.Converter__video {
+	width: 800px;
+	height: 500px;
+	border: none;
+}
+
+.Converter__container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.Converter__download {
+	text-decoration: none;
+	font-size: 18px;
+	border: 1px solid black;
+	background-color: black;
+	padding: 5px 10px;
+	margin: 20px;
+	border-radius: 5px;
+	color: white;
+}
+
+.Converter__download:hover {
+	background-color: white;
+	color: black;
+}
+
+.error {
+	color: red;
 }
