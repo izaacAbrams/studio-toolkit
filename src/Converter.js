@@ -23,9 +23,6 @@ class Converter extends Component {
 	}
 	handleSubmit(e) {
 		e.preventDefault();
-		console.log(
-			document.querySelector(".Converter__input").value.trim().length === 0
-		);
 		if (document.querySelector(".Converter__input").value.trim().length === 0) {
 			this.setState({
 				error: "Please paste URL into search bar",
