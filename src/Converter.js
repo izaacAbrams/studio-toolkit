@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import config from "./config";
+
 class Converter extends Component {
 	state = {
 		title: null,
@@ -7,13 +9,13 @@ class Converter extends Component {
 	};
 	handleDownload(e) {
 		e.preventDefault();
-		const URL = `https://www.youtube.com/watch?v=IBDgHaTy_wU`;
-		window.location.href = `http://localhost:8000/download?URL=${URL}`;
+		const URL = document.querySelector(".Converter__input").value;
+		window.location.href = `${config.API_ENDPOINT}/download?URL=${URL}&title=${this.state.title}`;
 	}
 
 	getInfo() {
 		const search = document.querySelector(".Converter__input").value;
-		return fetch(`http://localhost:8000/info?URL=${search}`, {
+		return fetch(`${config.API_ENDPOINT}/info?URL=${search}`, {
 			method: "GET",
 		}).then((res) =>
 			!res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()

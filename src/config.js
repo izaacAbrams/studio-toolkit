@@ -1,3 +1,3 @@
 export default {
-    API_ENDPOINT: "http://localhost:8000/url"
-}
+	API_ENDPOINT: "https://studio-toolkit.herokuapp.com",
+};
