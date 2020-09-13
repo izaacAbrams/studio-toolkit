@@ -55,9 +55,10 @@ class Converter extends Component {
 				});
 			});
 		} else if (this.state.type === "search") {
-			this.getInfo().then((info) =>
-				this.setState({ searchResults: info.items })
-			);
+			this.getInfo().then((info) => {
+				const results = info.items.splice(0, 10);
+				this.setState({ searchResults: results });
+			});
 		}
 	}
 
