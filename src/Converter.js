@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import url from "./images/url.svg";
+import ytLogo from "./images/youtube.svg";
 import config from "./config";
 
 class Converter extends Component {
@@ -48,11 +50,24 @@ class Converter extends Component {
 		);
 		return (
 			<div className="Converter">
-				<form onSubmit={(e) => this.handleSubmit(e)}>
-					<input className="Converter__input" type="text" />
-					<button className="Converter__find_btn" type="submit">
-						Convert
-					</button>
+				<form
+					className="Converter__form"
+					onSubmit={(e) => this.handleSubmit(e)}
+				>
+					<div className="Converter__input_wrapper">
+						<input className="Converter__input" type="text" />
+						<button className="Converter__find_btn" type="submit"></button>
+					</div>
+					<div className="Converter__btn_wrapper">
+						<button className="Converter__url input_btn">
+							<img src={url} className="btn_img" alt="URL Link" />
+							URL
+						</button>
+						<button className="Converter__yt_search input_btn">
+							<img src={ytLogo} className="btn_img" alt="Youtube Search" />
+							Search
+						</button>
+					</div>
 				</form>
 				{!!this.state.title ? (
 					<h2 className="Converter__vid_title">{this.state.title}</h2>

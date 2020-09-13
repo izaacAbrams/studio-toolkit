@@ -1,6 +1,22 @@
+.App {
+	background-image: url("./images/main_bg.svg");
+	height: 100vh;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	backdrop-filter: blur(20px);
+}
+.App__blurred_bg {
+	height: 100%;
+	background-position: center;
+	filter: blur(10px);
+}
 .App__nav {
 	display: flex;
-	padding: 10px;
+	align-items: center;
+	justify-content: space-between;
+	background-color: black;
+	color: white;
 }
 
 .App__header {
@@ -9,32 +25,38 @@
 }
 
 .App__logo {
-	width: 100px;
+	height: 50px;
+	padding: 20px 50px;
 }
 
 .Converter {
-	display: flex;
-	align-items: center;
-	flex-direction: column;
 	padding: 5% 0;
 }
 
+.Converter__input_wrapper,
+.Converter__btn_wrapper {
+	display: flex;
+	justify-content: center;
+	margin: 20px;
+}
 .Converter__input {
 	font-size: 18px;
-	padding: 15px 20px;
-	border: 1px solid black;
-	border-right: 0;
-	border-radius: 10px 0 0 10px;
+	padding: 10px 20px;
+	width: 50%;
+	border: 0;
+	border-radius: 5px;
 }
 
 .Converter__find_btn {
 	font-size: 18px;
-	padding: 15px 20px;
-	border: 1px solid black;
-	border-left: 0;
-	border-radius: 0 10px 10px 0;
-	background-color: white;
-	color: #1f1f1f;
+	padding: 25px;
+	margin: 0 20px;
+	border: 0;
+	border-radius: 5px;
+	background: #8151bf url("./images/search.svg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 30px;
 }
 
 .Converter__find_btn:hover {
@@ -76,6 +98,31 @@
 	color: black;
 }
 
+.links_wrapper {
+	padding: 10px;
+}
+.social_links {
+	height: 50px;
+	padding: 0 10px;
+}
+.input_btn {
+	font-size: 18px;
+	padding: 10px;
+	width: 20%;
+	margin: 0 2%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 0;
+	border-radius: 5px;
+	background-color: #8151bf;
+	color: white;
+}
+
+.btn_img {
+	height: 20px;
+	padding-right: 10px;
+}
 .error {
 	color: red;
 }
