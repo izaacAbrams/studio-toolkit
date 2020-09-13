@@ -8,6 +8,8 @@ class Converter extends Component {
 		title: null,
 		embed: null,
 		error: null,
+		type: "URL",
+		searchResults: null,
 	};
 	handleDownload(e) {
 		e.preventDefault();
@@ -17,11 +19,24 @@ class Converter extends Component {
 
 	getInfo() {
 		const search = document.querySelector(".Converter__input").value;
-		return fetch(`${config.API_ENDPOINT}/info?URL=${search}`, {
+		return fetch(`${config.API_ENDPOINT}/info?${this.state.type}=${search}`, {
 			method: "GET",
 		}).then((res) =>
 			!res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
 		);
+	}
+	handleUrlSearchBtn(e) {
+		e.preventDefault();
+		this.setState({
+			type: "URL",
+		});
+	}
+	handleYtSearchBtn(e) {
+		e.preventDefault();
+		this.setState({
+			type: "search",
+		});
+		document.querySelector(".Converter__find_btn").focus();
 	}
 	handleSubmit(e) {
 		e.preventDefault();
@@ -29,7 +44,7 @@ class Converter extends Component {
 			this.setState({
 				error: "Please paste URL into search bar",
 			});
-		} else {
+		} else if (this.state.type === "URL") {
 			this.setState({
 				error: null,
 			});
@@ -39,6 +54,10 @@ class Converter extends Component {
 					embed: info.videoDetails.embed.iframeUrl,
 				});
 			});
+		} else if (this.state.type === "search") {
+			this.getInfo().then((info) =>
+				this.setState({ searchResults: info.items })
+			);
 		}
 	}
 
@@ -59,11 +78,17 @@ class Converter extends Component {
 						<button className="Converter__find_btn" type="submit"></button>
 					</div>
 					<div className="Converter__btn_wrapper">
-						<button className="Converter__url input_btn">
+						<button
+							onClick={(e) => this.handleUrlSearchBtn(e)}
+							className="Converter__url input_btn"
+						>
 							<img src={url} className="btn_img" alt="URL Link" />
 							URL
 						</button>
-						<button className="Converter__yt_search input_btn">
+						<button
+							onClick={(e) => this.handleYtSearchBtn(e)}
+							className="Converter__yt_search input_btn"
+						>
 							<img src={ytLogo} className="btn_img" alt="Youtube Search" />
 							Search
 						</button>
@@ -91,6 +116,29 @@ class Converter extends Component {
 							Download
 						</a>
 					</div>
+				) : (
+					<></>
+				)}
+				{!!this.state.searchResults ? (
+					this.state.searchResults.map((item) => {
+						if (item.link) {
+							return (
+								<div key={item.link}>
+									<p>{item.title}</p>
+									{console.log(item.link)}
+									<iframe
+										key={item.link}
+										src={`https://youtube.com/embed/${item.link.replace(
+											"https://www.youtube.com/watch?v=",
+											""
+										)}`}
+									/>
+								</div>
+							);
+						} else {
+							return <></>;
+						}
+					})
 				) : (
 					<></>
 				)}
