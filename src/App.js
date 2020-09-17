@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 import Converter from "./Converter/Converter";
 import logo from "./images/logo.png";
 import fbLogo from "./images/facebook.svg";
@@ -21,14 +21,20 @@ class App extends Component {
 		return (
 			<div className="App">
 				<div className="App__nav">
-					<img src={logo} className="App__logo" alt="TM Studioz Logo" />
+					<Link to={"/"}>
+						<img src={logo} className="App__logo" alt="TM Studioz Logo" />
+					</Link>
 					<div className="links_wrapper">
-						<img
-							src={fbLogo}
-							className="social_links fb_link"
-							alt="Facebook Link"
-						/>
-						<img src={igLogo} className="social_links" alt="Instagram Link" />
+						<a target="#blank" href="https://www.facebook.com/TmConverter">
+							<img
+								src={fbLogo}
+								className="social_links fb_link"
+								alt="Facebook Link"
+							/>
+						</a>
+						<a target="#blank" href="https://www.instagram.com/tmconverter">
+							<img src={igLogo} className="social_links" alt="Instagram Link" />
+						</a>
 					</div>
 				</div>
 				<Context.Provider value={this.state}>

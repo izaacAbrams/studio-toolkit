@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import url from "../images/url.svg";
 import ytLogo from "../images/youtube.svg";
-import config from "../config";
-import SearchResults from "../SearchResults/SearchResults";
 import Context from "../Context";
 import "./Converter.css";
 
@@ -10,34 +8,24 @@ class Converter extends Component {
 	static contextType = Context;
 
 	state = {
-		title: null,
-		embed: null,
 		error: null,
 		type: "URL",
-		searchResults: null,
 	};
-	handleDownload(e) {
-		e.preventDefault();
-		const URL = document.querySelector(".Converter__input").value;
-		window.location.href = `${config.API_ENDPOINT}/download?URL=${URL}&title=${this.state.title}`;
-	}
 
-	getInfo() {
-		const search = document.querySelector(".Converter__input").value;
-		return fetch(`${config.API_ENDPOINT}/info?${this.state.type}=${search}`, {
-			method: "GET",
-		}).then((res) =>
-			!res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
-		);
-	}
 	handleUrlSearchBtn(e) {
 		e.preventDefault();
+		document.querySelector(".Converter__yt_search").style.border = "0";
+		document.querySelector(".Converter__url").style.border = "1px solid white";
 		this.setState({
 			type: "URL",
 		});
 	}
 	handleYtSearchBtn(e) {
 		e.preventDefault();
+		document.querySelector(".Converter__yt_search").style.border =
+			"1px solid white";
+		document.querySelector(".Converter__url").style.border = "0";
+
 		this.setState({
 			type: "search",
 		});
@@ -53,21 +41,13 @@ class Converter extends Component {
 			this.setState({
 				error: null,
 			});
-			this.getInfo().then((info) => {
-				this.setState({
-					title: info.videoDetails.title,
-					embed: info.videoDetails.embed.iframeUrl,
-				});
-			});
+			this.props.history.push(
+				`/URL/search/${document.querySelector(".Converter__input").value}`
+			);
 		} else if (this.state.type === "search") {
-			this.getInfo().then((info) => {
-				const results = info.items.splice(0, 10);
-				// this.setState({ searchResults: results });
-				this.context.updateResults(results);
-				this.props.history.push(
-					`/yt/search/${document.querySelector(".Converter__input").value}`
-				);
-			});
+			this.props.history.push(
+				`/yt/search/${document.querySelector(".Converter__input").value}`
+			);
 		}
 	}
 
@@ -79,6 +59,10 @@ class Converter extends Component {
 		);
 		return (
 			<div className="Converter">
+				<h1 className="Converter__title">
+					Please paste the URL in the search bar below, or click "Search" to
+					search Youtube videos
+				</h1>
 				<form
 					className="Converter__form"
 					onSubmit={(e) => this.handleSubmit(e)}
@@ -90,11 +74,13 @@ class Converter extends Component {
 					<div className="Converter__btn_wrapper">
 						<button
 							onClick={(e) => this.handleUrlSearchBtn(e)}
+							style={{ border: "1px solid white" }}
 							className="Converter__url input_btn"
 						>
 							<img src={url} className="btn_img" alt="URL Link" />
 							URL
 						</button>
+
 						<button
 							onClick={(e) => this.handleYtSearchBtn(e)}
 							className="Converter__yt_search input_btn"
@@ -104,42 +90,7 @@ class Converter extends Component {
 						</button>
 					</div>
 				</form>
-				{!!this.state.title ? (
-					<h2 className="Converter__vid_title">{this.state.title}</h2>
-				) : (
-					<></>
-				)}
 				{error}
-				{!!this.state.embed ? (
-					<div className="Converter__container">
-						<iframe
-							src={this.state.embed}
-							className="Converter__video"
-							title={this.state.title}
-						/>
-						<a
-							href="/"
-							className="Converter__download"
-							download
-							onClick={(e) => this.handleDownload(e)}
-						>
-							Download
-						</a>
-					</div>
-				) : (
-					<></>
-				)}
-				{!!this.state.searchResults ? (
-					this.state.searchResults.map((item) => {
-						if (item.link) {
-							return <SearchResults item={item} />;
-						} else {
-							return <></>;
-						}
-					})
-				) : (
-					<></>
-				)}
 			</div>
 		);
 	}

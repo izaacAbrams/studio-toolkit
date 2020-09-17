@@ -6,6 +6,11 @@
 	color: white;
 }
 
+.App {
+	background-color: #363636;
+	color: white;
+}
+
 .App__header {
 	justify-self: center;
 	margin: auto;
