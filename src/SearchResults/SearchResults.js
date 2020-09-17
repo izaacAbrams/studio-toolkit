@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Context from "../Context";
 import config from "../config";
+import spinner from "../images/spinner.svg";
 import "./SearchResults.css";
 
 class SearchResults extends Component {
@@ -14,12 +15,10 @@ class SearchResults extends Component {
 	};
 	handleDownload(e, link, title) {
 		e.preventDefault();
-		// const URL = document.querySelector(".Converter__input").value;
 		window.location.href = `${config.API_ENDPOINT}/download?URL=${link}&title=${title}`;
 	}
 
 	getInfo(search) {
-		// const search = document.querySelector(".Converter__input").value;
 		const type = this.props.match.params.type === "yt" ? "search" : "URL";
 		const searchFormat =
 			type === "URL"
@@ -47,7 +46,7 @@ class SearchResults extends Component {
 	handleResults() {
 		if (this.props.match.params.type === "yt") {
 			return this.state.results.map((item) => {
-				return !!item.link ? (
+				return !!item.link && !item.live ? (
 					<div className="SearchResults__result" key={item.link + item.title}>
 						<div className="SearchResults__container">
 							<iframe
@@ -109,17 +108,28 @@ class SearchResults extends Component {
 		});
 	}
 	render() {
-		// let results;
-		// console.log(this.props.location);
-		// return this.getInfo(this.props.match.params.query).then((results) =>
-		// 	this.handleResults(results)
-		// );
 		const loading = this.state.loading ? (
-			<h1>Loading</h1>
+			<div className="loading_container">
+				<img className="loading" src={spinner} alt="Loading" />
+			</div>
 		) : (
 			this.handleResults()
 		);
-		return <div className="SearchResults">{loading}</div>;
+		return (
+			<div className="SearchResults">
+				{this.props.match.params.type === "yt" && !this.state.loading ? (
+					<div className="SearchResults__nav">
+						<h1 className="SearchResults__result_title">
+							Results for "{this.props.match.params.query}"
+						</h1>
+						<Link to={"/"} className="SearchResults__back">
+							Go Back
+						</Link>
+					</div>
+				) : null}
+				{loading}
+			</div>
+		);
 	}
 }
 

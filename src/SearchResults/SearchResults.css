@@ -28,6 +28,31 @@
 	border: 0;
 }
 
+.SearchResults__nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.SearchResults__result_title {
+	padding: 20px 50px;
+}
+
+.SearchResults__back {
+	margin: 20px 50px;
+	padding: 5px 10px;
+	font-size: 24px;
+	color: white;
+	text-decoration: none;
+	border: 1px solid white;
+	border-radius: 5px;
+}
+
+.SearchResults__back:hover {
+	background-color: black;
+	border: 1px solid black;
+}
+
 .purple {
 	background-color: #8151bf;
 	border: 0;

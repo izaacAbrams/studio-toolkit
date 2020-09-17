@@ -49,3 +49,9 @@
 .error {
 	color: red;
 }
+
+.loading_container {
+	height: calc(100vh - 94px);
+	display: flex;
+	justify-content: center;
+}
