@@ -79,13 +79,19 @@ class SearchResults extends Component {
 					<iframe
 						src={this.state.results.embed.iframeUrl}
 						className="Converter__video"
-						title={this.state.title}
+						title={this.state.results.title}
 					/>
 					<a
 						href="/"
 						className="Converter__download"
 						download
-						onClick={(e) => this.handleDownload(e)}
+						onClick={(e) =>
+							this.handleDownload(
+								e,
+								this.state.results.video_url,
+								this.state.results.title
+							)
+						}
 					>
 						Download
 					</a>
