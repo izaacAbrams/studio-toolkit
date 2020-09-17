@@ -1,9 +1,14 @@
 import React, { Component } from "react";
-import url from "./images/url.svg";
-import ytLogo from "./images/youtube.svg";
-import config from "./config";
+import url from "../images/url.svg";
+import ytLogo from "../images/youtube.svg";
+import config from "../config";
+import SearchResults from "../SearchResults/SearchResults";
+import Context from "../Context";
+import "./Converter.css";
 
 class Converter extends Component {
+	static contextType = Context;
+
 	state = {
 		title: null,
 		embed: null,
@@ -57,7 +62,11 @@ class Converter extends Component {
 		} else if (this.state.type === "search") {
 			this.getInfo().then((info) => {
 				const results = info.items.splice(0, 10);
-				this.setState({ searchResults: results });
+				// this.setState({ searchResults: results });
+				this.context.updateResults(results);
+				this.props.history.push(
+					`/yt/search/${document.querySelector(".Converter__input").value}`
+				);
 			});
 		}
 	}
@@ -123,19 +132,7 @@ class Converter extends Component {
 				{!!this.state.searchResults ? (
 					this.state.searchResults.map((item) => {
 						if (item.link) {
-							return (
-								<div key={item.link}>
-									<p>{item.title}</p>
-									{console.log(item.link)}
-									<iframe
-										key={item.link}
-										src={`https://youtube.com/embed/${item.link.replace(
-											"https://www.youtube.com/watch?v=",
-											""
-										)}`}
-									/>
-								</div>
-							);
+							return <SearchResults item={item} />;
 						} else {
 							return <></>;
 						}
