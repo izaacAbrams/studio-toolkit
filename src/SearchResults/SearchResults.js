@@ -13,9 +13,9 @@ class SearchResults extends Component {
 		loading: true,
 		error: null,
 	};
-	handleDownload(e, link, title) {
+	handleDownload(e, link, title, type) {
 		e.preventDefault();
-		window.location.href = `${config.API_ENDPOINT}/download?URL=${link}&title=${title}`;
+		window.location.href = `${config.API_ENDPOINT}/download?URL=${link}&title=${title}&type=${type}`;
 	}
 
 	getInfo(search) {
@@ -28,6 +28,43 @@ class SearchResults extends Component {
 			method: "GET",
 		}).then((res) =>
 			!res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
+		);
+	}
+
+	getBPM(URL) {
+		const token = config.ACCESS_ID;
+		return fetch(
+			`${config.API_ENDPOINT}/download?URL=${URL}&title='music'&type='mp3'`
+		).then((file) =>
+			// fetch(
+			// 	`https://api.sonicAPI.com/analyze/tempo?access_id=${token}&format=json&input_file=${file.body}`,
+			// 	{
+			// 		method: "POST",
+			// 		// format: "json",
+			// 		// blocking: true,
+			// 		// access_id: token,
+			// 		// input_file: `${config.API_ENDPOINT}/download?URL=${URL}&title='music'&type='mp3'`,
+			// 	}
+			// ).then((res) =>
+			// 	!res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
+			// )
+			file.body
+				.getReader()
+				.read()
+				.then((file) =>
+					fetch(
+						`https://api.sonicAPI.com/analyze/tempo?access_id=${token}&format=json&input_file=${file.body}`,
+						{
+							method: "POST",
+							// format: "json",
+							// blocking: true,
+							// access_id: token,
+							// input_file: `${config.API_ENDPOINT}/download?URL=${URL}&title='music'&type='mp3'`,
+						}
+					).then((res) =>
+						!res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
+					)
+				)
 		);
 	}
 
@@ -60,15 +97,53 @@ class SearchResults extends Component {
 							/>
 							{!!item.title ? this.makeTitle(item.title) : null}
 						</div>
-						<a
-							href="/"
-							className="Converter__download"
-							key={item.link + item.views}
-							download
-							onClick={(e) => this.handleDownload(e, item.link, item.title)}
-						>
-							Download
-						</a>
+						<div className="dropdown">
+							<button className="dropbtn">Download</button>
+							<div className="dropdown-content">
+								<a
+									href="/"
+									download
+									onClick={(e) =>
+										this.handleDownload(
+											e,
+											this.state.results.video_url,
+											this.state.results.title,
+											"mp3"
+										)
+									}
+								>
+									MP3
+								</a>
+								<a
+									href="/"
+									download
+									onClick={(e) =>
+										this.handleDownload(
+											e,
+											this.state.results.video_url,
+											this.state.results.title,
+											"wav"
+										)
+									}
+								>
+									WAV
+								</a>
+								<a
+									href="/"
+									download
+									onClick={(e) =>
+										this.handleDownload(
+											e,
+											this.state.results.video_url,
+											this.state.results.title,
+											"mp4"
+										)
+									}
+								>
+									MP4
+								</a>
+							</div>
+						</div>
 					</div>
 				) : null;
 			});
@@ -81,20 +156,53 @@ class SearchResults extends Component {
 						className="Converter__video"
 						title={this.state.results.title}
 					/>
-					<a
-						href="/"
-						className="Converter__download"
-						download
-						onClick={(e) =>
-							this.handleDownload(
-								e,
-								this.state.results.video_url,
-								this.state.results.title
-							)
-						}
-					>
-						Download
-					</a>
+					<div className="dropdown">
+						<button className="dropbtn">Download</button>
+						<div className="dropdown-content">
+							<a
+								href="/"
+								download
+								onClick={(e) =>
+									this.handleDownload(
+										e,
+										this.state.results.video_url,
+										this.state.results.title,
+										"mp3"
+									)
+								}
+							>
+								MP3
+							</a>
+							<a
+								href="/"
+								download
+								onClick={(e) =>
+									this.handleDownload(
+										e,
+										this.state.results.video_url,
+										this.state.results.title,
+										"wav"
+									)
+								}
+							>
+								WAV
+							</a>
+							<a
+								href="/"
+								download
+								onClick={(e) =>
+									this.handleDownload(
+										e,
+										this.state.results.video_url,
+										this.state.results.title,
+										"mp4"
+									)
+								}
+							>
+								MP4
+							</a>
+						</div>
+					</div>
 					<Link to={"/"}>
 						<button className="Converter__download purple">Go Back</button>
 					</Link>
@@ -110,6 +218,9 @@ class SearchResults extends Component {
 				this.setState({ results: info.items, loading: false });
 			} else {
 				this.setState({ results: info.videoDetails, loading: false });
+				this.getBPM(info.videoDetails.video_url).then((bpm) =>
+					console.log(bpm)
+				);
 			}
 		});
 	}
