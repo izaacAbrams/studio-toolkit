@@ -79,3 +79,7 @@
 	padding: 5% 20%;
 	line-height: 65px;
 }
+
+.Converter__header {
+	display: flex;
+}

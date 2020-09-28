@@ -31,42 +31,42 @@ class SearchResults extends Component {
 		);
 	}
 
-	getBPM(URL) {
-		const token = config.ACCESS_ID;
-		return fetch(
-			`${config.API_ENDPOINT}/download?URL=${URL}&title='music'&type='mp3'`
-		).then((file) =>
-			// fetch(
-			// 	`https://api.sonicAPI.com/analyze/tempo?access_id=${token}&format=json&input_file=${file.body}`,
-			// 	{
-			// 		method: "POST",
-			// 		// format: "json",
-			// 		// blocking: true,
-			// 		// access_id: token,
-			// 		// input_file: `${config.API_ENDPOINT}/download?URL=${URL}&title='music'&type='mp3'`,
-			// 	}
-			// ).then((res) =>
-			// 	!res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
-			// )
-			file.body
-				.getReader()
-				.read()
-				.then((file) =>
-					fetch(
-						`https://api.sonicAPI.com/analyze/tempo?access_id=${token}&format=json&input_file=${file.body}`,
-						{
-							method: "POST",
-							// format: "json",
-							// blocking: true,
-							// access_id: token,
-							// input_file: `${config.API_ENDPOINT}/download?URL=${URL}&title='music'&type='mp3'`,
-						}
-					).then((res) =>
-						!res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
-					)
-				)
-		);
-	}
+	// getBPM(URL) {
+	// 	const token = config.ACCESS_ID;
+	// 	return fetch(
+	// 		`${config.API_ENDPOINT}/download?URL=${URL}&title='music'&type='mp3'`
+	// 	).then((file) =>
+	// fetch(
+	// 	`https://api.sonicAPI.com/analyze/tempo?access_id=${token}&format=json&input_file=${file.body}`,
+	// 	{
+	// 		method: "POST",
+	// 		// format: "json",
+	// 		// blocking: true,
+	// 		// access_id: token,
+	// 		// input_file: `${config.API_ENDPOINT}/download?URL=${URL}&title='music'&type='mp3'`,
+	// 	}
+	// ).then((res) =>
+	// 	!res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
+	// )
+	// 		file.body
+	// 			.getReader()
+	// 			.read()
+	// 			.then((file) =>
+	// 				fetch(
+	// 					`https://api.sonicAPI.com/analyze/tempo?access_id=${token}&format=json&input_file=${file.body}`,
+	// 					{
+	// 						method: "POST",
+	// 						// format: "json",
+	// 						// blocking: true,
+	// 						// access_id: token,
+	// 						// input_file: `${config.API_ENDPOINT}/download?URL=${URL}&title='music'&type='mp3'`,
+	// 					}
+	// 				).then((res) =>
+	// 					!res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
+	// 				)
+	// 			)
+	// 	);
+	// }
 
 	makeTitle(title) {
 		return title.length > 40 ? (
@@ -150,7 +150,12 @@ class SearchResults extends Component {
 		} else if (this.props.match.params.type === "URL") {
 			return (
 				<div className="Converter__container">
-					<h2 className="Converter__vid_title">{this.state.results.title}</h2>
+					<div className="Converter__header">
+						<Link to={"/"}>
+							<button className="Converter__download purple">Go Back</button>
+						</Link>
+						<h2 className="Converter__vid_title">{this.state.results.title}</h2>
+					</div>
 					<iframe
 						src={this.state.results.embed.iframeUrl}
 						className="Converter__video"
@@ -203,9 +208,6 @@ class SearchResults extends Component {
 							</a>
 						</div>
 					</div>
-					<Link to={"/"}>
-						<button className="Converter__download purple">Go Back</button>
-					</Link>
 				</div>
 			);
 		} else {
@@ -218,9 +220,6 @@ class SearchResults extends Component {
 				this.setState({ results: info.items, loading: false });
 			} else {
 				this.setState({ results: info.videoDetails, loading: false });
-				this.getBPM(info.videoDetails.video_url).then((bpm) =>
-					console.log(bpm)
-				);
 			}
 		});
 	}
