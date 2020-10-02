@@ -60,8 +60,9 @@
 
 .dropbtn {
 	background-color: black;
+	border-radius: 5px;
 	color: white;
-	padding: 16px;
+	padding: 20px 30px;
 	margin: 20px 0 0 0;
 	font-size: 16px;
 	border: none;
@@ -105,4 +106,5 @@
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
 	background-color: #8151bf;
+	border-radius: 5px 5px 0 0;
 }

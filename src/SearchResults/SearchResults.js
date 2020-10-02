@@ -31,43 +31,6 @@ class SearchResults extends Component {
 		);
 	}
 
-	// getBPM(URL) {
-	// 	const token = config.ACCESS_ID;
-	// 	return fetch(
-	// 		`${config.API_ENDPOINT}/download?URL=${URL}&title='music'&type='mp3'`
-	// 	).then((file) =>
-	// fetch(
-	// 	`https://api.sonicAPI.com/analyze/tempo?access_id=${token}&format=json&input_file=${file.body}`,
-	// 	{
-	// 		method: "POST",
-	// 		// format: "json",
-	// 		// blocking: true,
-	// 		// access_id: token,
-	// 		// input_file: `${config.API_ENDPOINT}/download?URL=${URL}&title='music'&type='mp3'`,
-	// 	}
-	// ).then((res) =>
-	// 	!res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
-	// )
-	// 		file.body
-	// 			.getReader()
-	// 			.read()
-	// 			.then((file) =>
-	// 				fetch(
-	// 					`https://api.sonicAPI.com/analyze/tempo?access_id=${token}&format=json&input_file=${file.body}`,
-	// 					{
-	// 						method: "POST",
-	// 						// format: "json",
-	// 						// blocking: true,
-	// 						// access_id: token,
-	// 						// input_file: `${config.API_ENDPOINT}/download?URL=${URL}&title='music'&type='mp3'`,
-	// 					}
-	// 				).then((res) =>
-	// 					!res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
-	// 				)
-	// 			)
-	// 	);
-	// }
-
 	makeTitle(title) {
 		return title.length > 40 ? (
 			<p key={title} className="SearchResults__title">
