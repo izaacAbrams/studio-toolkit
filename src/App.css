@@ -1,57 +1,59 @@
+body {
+  background-color: #171717;
+}
+
 .App__nav {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	background-color: black;
-	color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: black;
+  color: white;
 }
 
 .App {
-	background-color: #363636;
-	color: white;
+  color: white;
 }
 
 .App__header {
-	justify-self: center;
-	margin: auto;
+  justify-self: center;
+  margin: auto;
 }
 
 .App__logo {
-	height: 50px;
-	padding: 20px 50px;
+  height: 50px;
+  padding: 20px 50px;
 }
 
 .links_wrapper {
-	padding: 10px;
+  padding: 10px;
 }
 .social_links {
-	height: 50px;
-	padding: 0 10px;
+  height: 50px;
+  padding: 0 10px;
 }
 .input_btn {
-	font-size: 18px;
-	padding: 10px;
-	width: 20%;
-	margin: 0 2%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border: 0;
-	border-radius: 5px;
-	background-color: #8151bf;
-	color: white;
+  font-size: 18px;
+  padding: 10px;
+  width: 20%;
+  margin: 0 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 5px;
+  background-color: #8151bf;
+  color: white;
 }
 
 .btn_img {
-	height: 20px;
-	padding-right: 10px;
+  height: 20px;
+  padding-right: 10px;
 }
 .error {
-	color: red;
+  color: red;
 }
 
 .loading_container {
-	height: calc(100vh - 94px);
-	display: flex;
-	justify-content: center;
+  display: flex;
+  justify-content: center;
 }

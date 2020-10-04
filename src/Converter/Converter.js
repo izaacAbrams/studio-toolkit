@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import url from "../images/url.svg";
 import ytLogo from "../images/youtube.svg";
 import Context from "../Context";
@@ -91,6 +92,9 @@ class Converter extends Component {
             </button>
           </div>
         </form>
+        <Link to={"/bpm-key-finder"} className="Converter__link">
+          BPM and Key Finder
+        </Link>
         {error}
       </div>
     );
