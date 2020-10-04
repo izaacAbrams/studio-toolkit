@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import Context from "../Context";
 import config from "../config";
 import spinner from "../images/spinner.svg";
-import download from "downloadjs";
-import lamejs from "lamejs";
 import "./SearchResults.css";
 
 class SearchResults extends Component {
@@ -19,32 +17,6 @@ class SearchResults extends Component {
   handleDownload(e, link, title, type) {
     e.preventDefault();
     window.location.href = `${config.API_ENDPOINT}/download?URL=${link}&title=${title}&type=${type}`;
-    // return fetch(
-    //   `${config.API_ENDPOINT}/download?URL=${link}&title=${title}&type=${type}`,
-    //   {
-    //     method: "GET",
-    //   }
-    // )
-    //   .then((res) => {
-    //     let mp3Buffer = new Int8Array();
-    //     // response.body is a readableStream
-    //     const reader = res.body.getReader();
-    //     function handleChunk({ done, value }) {
-    //       if (done) {
-    //         //       //everything has been loaded, call `download()` to save gthe file as pdf and name it "my-file.pdf"
-    //         download(mp3Buffer, `music.wav`, "audio/wav");
-
-    //         return;
-    //       }
-    //       //     // concat already loaded data with the loaded chunk
-    //       mp3Buffer = Int8Array.from([...mp3Buffer, ...value]);
-    //       //     // retreive next chunk
-    //       reader.read().then(handleChunk);
-    //     }
-    //     //   //retreive first chunk
-    //     reader.read().then(handleChunk);
-    //   })
-    //   .catch((err) => console.error(err));
   }
 
   getInfo(search) {
